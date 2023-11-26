@@ -1,26 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Counters} from './components/counters/Counters';
+import {LocalStoragePractic} from './components/local-storage-practic/LocalStoragePractic';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+
+
+    return (
+        <div className="App">
+
+            <h3></h3>
+
+            <Counters/>
+            <LocalStoragePractic/>
+
+        </div>
+    );
+};
 
 export default App;
