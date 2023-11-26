@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
-import {Counters} from './components/counters/Counters';
+import {Counter1} from './components/counters/Counter1';
 import {LocalStoragePractic} from './components/local-storage-practic/LocalStoragePractic';
+import {Counter2} from './components/counters/Counter2';
 
 const App = () => {
 
@@ -11,8 +12,10 @@ const App = () => {
 
             <h3></h3>
 
-            <Counters/>
-            <LocalStoragePractic/>
+            <Counter1/>
+            <br/>
+            <Counter2/>
+            {/*<LocalStoragePractic/>*/}
 
         </div>
     );
