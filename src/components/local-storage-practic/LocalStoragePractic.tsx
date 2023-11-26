@@ -1,8 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 export const LocalStoragePractic = () => {
-
     const [value, setValue] = useState(0)
+
+    useEffect(() => {
+        getFromLSHandler()
+    }, [])
+
+    useEffect(() => {
+        setToLSHandler()
+    }, [value])
+
 
     const incHandler = () => {
         setValue(prev => prev + 1)
