@@ -10,11 +10,15 @@ const App = () => {
     return (
         <div className="App">
 
-            <h3></h3>
 
             <Counter1/>
             <br/>
+            <hr/>
+            <br/>
             <Counter2/>
+            <br/>
+            <hr/>
+            <br/>
             {/*<LocalStoragePractic/>*/}
 
         </div>

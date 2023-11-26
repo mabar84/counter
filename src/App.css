@@ -9,7 +9,7 @@
 }
 
 .counter {
-    width: 320px;
+    width: 280px;
     margin: 0 auto;
     padding: 10px;
     border-radius: 20px;
@@ -23,6 +23,7 @@
 
 .value {
     margin-bottom: 10px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,11 +54,13 @@
 }
 
 .button {
-    min-width: 48px;
+    width: 50px;
+    height: 20px;
     background: aquamarine;
     border-radius: 10px;
-    border: none;
     cursor: pointer;
+    border: 1px solid #235d15;
+
 }
 
 .button.disabled {

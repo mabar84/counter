@@ -1,9 +1,13 @@
 import React from 'react';
 
-export  const Input = () => {
+type InputPropsType = {
+    value: number
+}
+
+export const Input: React.FC<InputPropsType> = ({value}) => {
     return (
         <>
-            <input type="number"  />
+            <input type="number" value={value}/>
         </>
     );
 };
