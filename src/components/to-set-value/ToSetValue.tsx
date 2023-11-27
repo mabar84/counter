@@ -4,6 +4,8 @@ import {Button} from '../buttons/Button';
 
 type ToSetValuePropsType = {
     value: number
+    minValue: number
+    maxValue: number
     title: string
     setValue: (value: number) => void
 }
@@ -11,7 +13,7 @@ type ToSetValuePropsType = {
 
 export const ToSetValue: React.FC<ToSetValuePropsType> = (props) => {
 
-    const {value, ...rest} = props
+    const {title, minValue, maxValue, value, ...rest} = props
 
     const dec = () => {
         props.setValue(value - 1)
@@ -23,11 +25,22 @@ export const ToSetValue: React.FC<ToSetValuePropsType> = (props) => {
 
     return (
         <div className={s.toSetValue}>
-            <p>{props.title}  </p>
-            <Button name={'dec'} onClick={dec} disabled={false}/>
-            <p className={s.value}> {value} </p>
-            <Button name={'inc'} onClick={inc} disabled={false}/>
-
+            {title === 'MinValue'
+                ?
+                <>
+                    <p>{title}  </p>
+                    <Button name={'dec'} onClick={dec} disabled={minValue === 0}/>
+                    <p className={s.value}> {value} </p>
+                    <Button name={'inc'} onClick={inc} disabled={minValue >= maxValue}/>
+                </>
+                :
+                <>
+                    <p>{title}</p>
+                    <Button name={'dec'} onClick={dec} disabled={minValue >= maxValue}/>
+                    <p className={s.value}> {value} </p>
+                    <Button name={'inc'} onClick={inc} disabled={maxValue >= 99}/>
+                </>
+            }
         </div>
     );
 };
