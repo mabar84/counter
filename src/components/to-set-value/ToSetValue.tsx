@@ -1,5 +1,4 @@
 import React from 'react';
-import s from './ToSetValue.module.css'
 import {Button} from '../buttons/Button';
 
 type ToSetValuePropsType = {
@@ -24,20 +23,20 @@ export const ToSetValue: React.FC<ToSetValuePropsType> = (props) => {
 
 
     return (
-        <div className={s.toSetValue}>
+        <div className={'toSetValue'}>
             {title === 'MinValue'
                 ?
                 <>
                     <p>{title}  </p>
                     <Button name={'dec'} onClick={dec} disabled={minValue === 0}/>
-                    <p className={s.value}> {value} </p>
+                    <p className={'value'}> {value} </p>
                     <Button name={'inc'} onClick={inc} disabled={minValue >= maxValue}/>
                 </>
                 :
                 <>
                     <p>{title}</p>
                     <Button name={'dec'} onClick={dec} disabled={minValue >= maxValue}/>
-                    <p className={s.value}> {value} </p>
+                    <p className={'value'}> {value} </p>
                     <Button name={'inc'} onClick={inc} disabled={maxValue >= 99}/>
                 </>
             }

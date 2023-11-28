@@ -62,11 +62,18 @@ h2 {
     cursor: auto;
 }
 
+.toSetValue {
+    height: 25px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .limit .value {
     color: orange;
     font-size: 20px;
     font-weight: 700;
-    border: 2px solid orange;
 }
 
 .limit .buttons {
@@ -75,5 +82,23 @@ h2 {
 
 .limit .screen-text {
     color: orange;
-    font-weight: 900;
+    font-weight: 700;
+}
+
+.counter3 {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter3 .counter {
+    margin: unset;
+}
+
+.error-text {
+    color: orange;
+    font-size: 20px;
+    font-weight: 700;
 }
