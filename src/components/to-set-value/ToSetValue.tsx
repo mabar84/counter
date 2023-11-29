@@ -9,10 +9,9 @@ type ToSetValuePropsType = {
     setValue: (value: number) => void
 }
 
-
 export const ToSetValue: React.FC<ToSetValuePropsType> = (props) => {
 
-    const {title, minValue, maxValue, value, ...rest} = props
+    const {title, minValue, maxValue, value} = props
 
     const dec = () => {
         props.setValue(value - 1)
@@ -20,8 +19,6 @@ export const ToSetValue: React.FC<ToSetValuePropsType> = (props) => {
     const inc = () => {
         props.setValue(value + 1)
     }
-
-
     return (
         <div className={'toSetValue'}>
             {title === 'MinValue'
