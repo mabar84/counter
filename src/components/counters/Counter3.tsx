@@ -6,65 +6,73 @@ import Screen from '../screen/Screen';
 
 export const Counter3 = () => {
 
-    const [minValue, setMinValue] = useState(0)
-    const [maxValue, setMaxValue] = useState(5)
-    const [value, setValue] = useState(minValue)
-    const [error, setError] = useState(false)
-    const [errorMinMax, setErrorMinMax] = useState(false)
-
-    const [showText, setShowText] = useState(false)
-
+    const [state, setState] = useState(
+        {
+            minValue: 0,
+            maxValue: 5,
+            value: 0,
+            errorLimit: false,
+            errorMinMax: false,
+            showText: false
+        }
+    )
 
     useEffect(() => {
         const minValue = localStorage.getItem('minValue3')
         const maxValue = localStorage.getItem('maxValue3')
 
-        minValue && setMinValue(JSON.parse(minValue))
-        maxValue && setMaxValue(JSON.parse(maxValue))
-        minValue && setValue(JSON.parse(minValue))
-
+        minValue && setState({...state, minValue: JSON.parse(minValue)})
+        maxValue && setState({...state, maxValue: JSON.parse(maxValue)})
     }, [])
 
     useEffect(() => {
-        setError(value >= maxValue)
-        setErrorMinMax(minValue === maxValue)
-    }, [value, minValue, maxValue])
+        setState({
+            ...state,
+            errorLimit: state.value >= state.maxValue,
+            errorMinMax: state.minValue === state.maxValue
+        })
+    }, [state.value, state.minValue, state.maxValue])
 
     const increment = () => {
-        value < maxValue && setValue((value) => value + 1)
+        state.value < state.maxValue && setState({...state, value: state.value + 1})
     }
 
     const reset = () => {
-        setValue(minValue)
+        setState({...state, value: state.minValue})
     }
     const saveSettings = () => {
-        localStorage.setItem('minValue3', JSON.stringify(minValue))
-        localStorage.setItem('maxValue3', JSON.stringify(maxValue))
-        setValue(minValue)
+        localStorage.setItem('minValue3', JSON.stringify(state.minValue))
+        localStorage.setItem('maxValue3', JSON.stringify(state.maxValue))
 
+        setState({...state, value: state.minValue})
     }
 
     const onClickSetPanelHandler = () => {
-        setShowText(true)
-        setValue(minValue)
+        setState({...state, value: state.minValue, showText: true})
+    }
+    const setMaxValue = (value: number) => {
+        setState({...state, maxValue: value})
+    }
+    const setMinValue = (value: number) => {
+        setState({...state, minValue: value})
     }
 
     return <div className={'counter3'}>
-        <div onClick={onClickSetPanelHandler} className={`counter ${errorMinMax ? 'limit' : ''}`}>
-            <ToSetValue minValue={minValue} maxValue={maxValue} title={'MaxValue'} value={maxValue}
+        <div onClick={onClickSetPanelHandler} className={`counter ${state.errorMinMax ? 'limit' : ''}`}>
+            <ToSetValue minValue={state.minValue} maxValue={state.maxValue} title={'MaxValue'} value={state.maxValue}
                         setValue={setMaxValue}/>
-            <ToSetValue minValue={minValue} maxValue={maxValue} title={'MinValue'} value={minValue}
+            <ToSetValue minValue={state.minValue} maxValue={state.maxValue} title={'MinValue'} value={state.minValue}
                         setValue={setMinValue}/>
             <Wrapper>
-                <Button disabled={errorMinMax} onClick={saveSettings} name={'set'}/>
+                <Button disabled={state.errorMinMax} onClick={saveSettings} name={'set'}/>
             </Wrapper>
         </div>
-        <div className={`counter ${error ? 'limit' : ''}`}>
+        <div className={`counter ${state.errorLimit ? 'limit' : ''}`}>
             <Screen>
                 {
-                    showText ?
+                    state.showText ?
                         <p>
-                            {errorMinMax
+                            {state.errorMinMax
                                 ? <span className={'error-text'}>
                                     Incorrect value!
                                 </span>
@@ -74,15 +82,13 @@ export const Counter3 = () => {
                             }
                         </p> :
                         <p className={'screen-text'}>
-                            {value}
+                            {state.value}
                         </p>
                 }
-
-
             </Screen>
             <Wrapper>
-                <Button disabled={error} onClick={increment} name={'inc'}/>
-                <Button disabled={value === minValue} onClick={reset} name={'reset'}/>
+                <Button disabled={state.errorLimit} onClick={increment} name={'inc'}/>
+                <Button disabled={state.value === state.minValue} onClick={reset} name={'reset'}/>
             </Wrapper>
         </div>
     </div>
