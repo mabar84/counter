@@ -6,12 +6,12 @@ import Screen from '../screen/Screen';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../state/store';
 import {
-    setErrorAC,
-    setErrorMinMaxAC,
+    setError4AC,
+    setErrorMinMax4AC,
     setHideSetAC,
-    setMaxValueAC,
-    setMinValueAC,
-    setValueAC
+    setMaxValue4AC,
+    setMinValue4AC,
+    setValue4AC
 } from '../../state/couner4-reducer';
 
 export const Counter4 = () => {
@@ -26,34 +26,34 @@ export const Counter4 = () => {
     let hideSet = useSelector<AppRootStateType, boolean>(state => state.counter4.hideSet)
 
     useEffect(() => {
-        dispatch(setValueAC(minValue))
-        const minValueLS = localStorage.getItem('minValue')
-        const maxValueLS = localStorage.getItem('maxValue')
-        minValueLS && dispatch(setMinValueAC(JSON.parse(minValueLS)))
-        maxValueLS && dispatch(setMaxValueAC(JSON.parse(maxValueLS)))
-        minValueLS && dispatch(setValueAC(JSON.parse(minValueLS)))
+        dispatch(setValue4AC(minValue))
+        const minValueLS = localStorage.getItem('minValue4')
+        const maxValueLS = localStorage.getItem('maxValue4')
+        minValueLS && dispatch(setMinValue4AC(JSON.parse(minValueLS)))
+        maxValueLS && dispatch(setMaxValue4AC(JSON.parse(maxValueLS)))
+        minValueLS && dispatch(setValue4AC(JSON.parse(minValueLS)))
     }, [])
 
     useEffect(() => {
-        dispatch(setErrorAC(value >= maxValue))
-        dispatch(setErrorMinMaxAC(minValue === maxValue))
+        dispatch(setError4AC(value >= maxValue))
+        dispatch(setErrorMinMax4AC(minValue === maxValue))
     }, [value, minValue, maxValue])
 
     const increment = () => {
-        value < maxValue && dispatch(setValueAC(value + 1))
+        value < maxValue && dispatch(setValue4AC(value + 1))
     }
 
-    const reset = () => dispatch(setValueAC(minValue))
+    const reset = () => dispatch(setValue4AC(minValue))
 
     const switchSettings = () => {
         dispatch(setHideSetAC(!hideSet))
-        dispatch(setValueAC(minValue))
+        dispatch(setValue4AC(minValue))
     }
     const saveSettings = () => {
         dispatch(setHideSetAC(!hideSet))
-        dispatch(setValueAC(minValue))
-        localStorage.setItem('minValue', JSON.stringify(minValue))
-        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+        dispatch(setValue4AC(minValue))
+        localStorage.setItem('minValue4', JSON.stringify(minValue))
+        localStorage.setItem('maxValue4', JSON.stringify(maxValue))
     }
     return <>
         <h2>Wednesday: Counter4-redux</h2>

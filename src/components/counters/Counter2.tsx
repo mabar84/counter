@@ -11,13 +11,12 @@ export const Counter2 = () => {
     const [value, setValue] = useState(minValue)
     const [error, setError] = useState(false)
     const [errorMinMax, setErrorMinMax] = useState(false)
-
     const [hideSet, setHideSet] = useState(true)
 
 
     useEffect(() => {
-        const minValue = localStorage.getItem('minValue')
-        const maxValue = localStorage.getItem('maxValue')
+        const minValue = localStorage.getItem('minValue2')
+        const maxValue = localStorage.getItem('maxValue2')
 
         minValue && setMinValue(JSON.parse(minValue))
         maxValue && setMaxValue(JSON.parse(maxValue))
@@ -43,8 +42,8 @@ export const Counter2 = () => {
     }
     const saveSettings = () => {
         setHideSet(!hideSet)
-        localStorage.setItem('minValue', JSON.stringify(minValue))
-        localStorage.setItem('maxValue', JSON.stringify(maxValue))
+        localStorage.setItem('minValue2', JSON.stringify(minValue))
+        localStorage.setItem('maxValue2', JSON.stringify(maxValue))
         setValue(minValue)
     }
 

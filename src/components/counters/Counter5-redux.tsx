@@ -1,56 +1,69 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Button} from '../buttons/Button';
 import {Wrapper} from '../wrappers/Wrapper';
 import {ToSetValue} from '../to-set-value/ToSetValue';
 import Screen from '../screen/Screen';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from '../../state/store';
+import {
+    setError5AC,
+    setErrorMinMax5AC,
+    setMaxValue5AC,
+    setMinValue5AC,
+    setShowTextAC,
+    setValue5AC
+} from '../../state/couner5-reducer';
 
 export const Counter5 = () => {
-    const [minValue, setMinValue] = useState(0)
-    const [maxValue, setMaxValue] = useState(5)
-    const [value, setValue] = useState(minValue)
-    const [error, setError] = useState(false)
-    const [errorMinMax, setErrorMinMax] = useState(false)
-    const [showText, setShowText] = useState(false)
+
+
+    const dispatch = useDispatch()
+
+    let minValue = useSelector<AppRootStateType, number>(state => state.counter5.minValue)
+    let maxValue = useSelector<AppRootStateType, number>(state => state.counter5.maxValue)
+    let value = useSelector<AppRootStateType, number>(state => state.counter5.value)
+    let error = useSelector<AppRootStateType, boolean>(state => state.counter5.error)
+    let errorMinMax = useSelector<AppRootStateType, boolean>(state => state.counter5.errorMinMax)
+    let showText = useSelector<AppRootStateType, boolean>(state => state.counter5.showText)
 
     useEffect(() => {
-        const minValue = localStorage.getItem('minValue3')
-        const maxValue = localStorage.getItem('maxValue3')
-
-        minValue && setMinValue(JSON.parse(minValue))
-        maxValue && setMaxValue(JSON.parse(maxValue))
-        minValue && setValue(JSON.parse(minValue))
+        dispatch(setValue5AC(minValue))
+        const minValueLS = localStorage.getItem('minValue5')
+        const maxValueLS = localStorage.getItem('maxValue5')
+        minValueLS && dispatch(setMinValue5AC(JSON.parse(minValueLS)))
+        maxValueLS && dispatch(setMaxValue5AC(JSON.parse(maxValueLS)))
+        minValueLS && dispatch(setValue5AC(JSON.parse(minValueLS)))
     }, [])
     useEffect(() => {
-        setError(value >= maxValue)
-        setErrorMinMax(minValue === maxValue)
+        dispatch(setError5AC(value >= maxValue))
+        dispatch(setErrorMinMax5AC(minValue === maxValue))
     }, [value, minValue, maxValue])
 
     const increment = () => {
-        value < maxValue && setValue((value) => value + 1)
+        value < maxValue && dispatch(setValue5AC(value + 1))
     }
-    const reset = () => {
-        setValue(minValue)
-    }
+    const reset = () => dispatch(setValue5AC(minValue))
+
     const saveSettings = () => {
-        localStorage.setItem('minValue3', JSON.stringify(minValue))
-        localStorage.setItem('maxValue3', JSON.stringify(maxValue))
-        setValue(minValue)
-        setShowText(false)
+        dispatch(setShowTextAC(false))
+        dispatch(setValue5AC(minValue))
+        localStorage.setItem('minValue5', JSON.stringify(minValue))
+        localStorage.setItem('maxValue5', JSON.stringify(maxValue))
     }
     const setMaxValueHandler = (value: number) => {
-        setMaxValue(value)
-        setShowText(true)
-        setError(false)
-        setValue(0)
+        dispatch(setMaxValue5AC(value))
+        dispatch(setShowTextAC(true))
+        dispatch(setError5AC(false))
+        dispatch(setValue5AC(0))
     }
     const setMinValueHandler = (value: number) => {
-        setMinValue(value)
-        setShowText(true)
-        setError(false)
-        setValue(0)
+        dispatch(setMinValue5AC(value))
+        dispatch(setShowTextAC(true))
+        dispatch(setError5AC(false))
+        dispatch(setValue5AC(0))
     }
     return <>
-        <h2>Wednesday: Counter5</h2>
+        <h2>Wednesday: Counter5-redux</h2>
         <div className={'counter3'}>
             <div className={`counter ${errorMinMax ? 'limit' : ''}`}>
                 <ToSetValue

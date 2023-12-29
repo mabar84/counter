@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from '../buttons/Button';
 import {useDispatch} from 'react-redux';
-import {setMaxValueAC, setMinValueAC} from '../../state/couner4-reducer';
+import {setMaxValue4AC, setMinValue4AC} from '../../state/couner4-reducer';
 
 type ToSetValuePropsType = {
     value: number
@@ -19,15 +19,15 @@ export const ToSetValue: React.FC<ToSetValuePropsType> = (props) => {
     const dec = () => {
         console.log('dec', value)
         title === 'MinValue'
-            ? dispatch(setMinValueAC(value - 1))
-            : dispatch(setMaxValueAC(value - 1))
+            ? dispatch(setMinValue4AC(value - 1))
+            : dispatch(setMaxValue4AC(value - 1))
 
         props.setValue && props.setValue(value - 1)
     }
     const inc = () => {
         title === 'MinValue'
-            ? dispatch(setMinValueAC(value + 1))
-            : dispatch(setMaxValueAC(value + 1))
+            ? dispatch(setMinValue4AC(value + 1))
+            : dispatch(setMaxValue4AC(value + 1))
 
         props.setValue && props.setValue(value + 1)
     }
