@@ -21,19 +21,23 @@ export const Counter1 = () => {
     }, [value])
 
 
-    return (
-        <div className={`counter ${error ? 'limit' : ''}`}>
-            <Screen>
-                <p className={'screen-text'}>
-                    {value}
-                </p>
-            </Screen>
+    return (<>            <h2>Old test: Counter1</h2>
+            <div className={`counter ${error ? 'limit' : ''}`}>
+                <Screen>
+                    <p className={'screen-text'}>
+                        {value}
+                    </p>
+                </Screen>
 
-            <Wrapper>
-                <Button disabled={error} onClick={increment} name={'inc'}/>
-                <Button disabled={value === minValue} onClick={reset} name={'reset'}/>
-            </Wrapper>
-        </div>
+                <Wrapper>
+                    <Button disabled={error} onClick={increment} name={'inc'}/>
+                    <Button disabled={value === minValue} onClick={reset} name={'reset'}/>
+                </Wrapper>
+            </div>
+            <br/>
+            <hr/>
+        </>
+
     );
 };
 

@@ -49,44 +49,47 @@ export const Counter5 = () => {
         setError(false)
         setValue(0)
     }
-    return <div className={'counter3'}>
-        <div className={`counter ${errorMinMax ? 'limit' : ''}`}>
-            <ToSetValue
-                minValue={minValue} maxValue={maxValue} value={maxValue}
-                title={'MaxValue'} setValue={setMaxValueHandler}/>
-            <ToSetValue
-                minValue={minValue} maxValue={maxValue} value={minValue}
-                title={'MinValue'} setValue={setMinValueHandler}/>
-            <Wrapper>
-                <Button disabled={errorMinMax || !showText}
-                        onClick={saveSettings} name={'set'}/>
-            </Wrapper>
-        </div>
-        <div className={`counter ${error || errorMinMax ? 'limit' : ''}`}>
-            <Screen>
-                {
-                    showText ?
-                        <p>
-                            {errorMinMax
-                                ? <span className={'error-text'}>
+    return <>
+        <h2>Wednesday: Counter5</h2>
+        <div className={'counter3'}>
+            <div className={`counter ${errorMinMax ? 'limit' : ''}`}>
+                <ToSetValue
+                    minValue={minValue} maxValue={maxValue} value={maxValue}
+                    title={'MaxValue'} setValue={setMaxValueHandler}/>
+                <ToSetValue
+                    minValue={minValue} maxValue={maxValue} value={minValue}
+                    title={'MinValue'} setValue={setMinValueHandler}/>
+                <Wrapper>
+                    <Button disabled={errorMinMax || !showText}
+                            onClick={saveSettings} name={'set'}/>
+                </Wrapper>
+            </div>
+            <div className={`counter ${error || errorMinMax ? 'limit' : ''}`}>
+                <Screen>
+                    {
+                        showText ?
+                            <p>
+                                {errorMinMax
+                                    ? <span className={'error-text'}>
                                     Incorrect value!
                                 </span>
-                                : <span>
+                                    : <span>
                                     Enter values and press 'set'
                                 </span>
-                            }
-                        </p> :
-                        <p className={'screen-text'}>
-                            {value}
-                        </p>
-                }
-            </Screen>
-            <Wrapper>
-                <Button disabled={error || showText} onClick={increment} name={'inc'}/>
-                <Button disabled={value === minValue || showText}
-                        onClick={reset} name={'reset'}/>
-            </Wrapper>
+                                }
+                            </p> :
+                            <p className={'screen-text'}>
+                                {value}
+                            </p>
+                    }
+                </Screen>
+                <Wrapper>
+                    <Button disabled={error || showText} onClick={increment} name={'inc'}/>
+                    <Button disabled={value === minValue || showText}
+                            onClick={reset} name={'reset'}/>
+                </Wrapper>
+            </div>
         </div>
-    </div>
+    </>
 };
 

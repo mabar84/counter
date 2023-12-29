@@ -48,8 +48,9 @@ export const Counter2 = () => {
         setValue(minValue)
     }
 
-    return (
-        hideSet ?
+    return <>
+        <h2>Tuesday: Counter2</h2>
+        {hideSet ?
             <div className={`counter ${error ? 'limit' : ''}`}>
                 <Screen>
                     <p className={'screen-text'}>
@@ -70,7 +71,9 @@ export const Counter2 = () => {
                 <Wrapper>
                     <Button disabled={errorMinMax} onClick={saveSettings} name={'set'}/>
                 </Wrapper>
-            </div>
-    );
+            </div>}
+        <br/>
+        <hr/>
+    </>
 };
 

@@ -47,9 +47,9 @@ export const Counter4 = () => {
         localStorage.setItem('maxValue', JSON.stringify(maxValue))
         setValue(minValue)
     }
-
-    return (
-        hideSet ?
+    return <>
+        <h2>Wednesday: Counter4</h2>
+        {hideSet ?
             <div className={`counter ${error ? 'limit' : ''}`}>
                 <Screen>
                     <p className={'screen-text'}>
@@ -71,6 +71,9 @@ export const Counter4 = () => {
                     <Button disabled={errorMinMax} onClick={saveSettings} name={'set'}/>
                 </Wrapper>
             </div>
-    );
+        }
+        <br/>
+        <hr/>
+    </>
 };
 
