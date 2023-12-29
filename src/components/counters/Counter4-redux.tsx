@@ -1,54 +1,62 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Button} from '../buttons/Button';
 import {Wrapper} from '../wrappers/Wrapper';
 import {ToSetValue} from '../to-set-value/ToSetValue';
 import Screen from '../screen/Screen';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from '../../state/store';
+import {
+    setErrorAC,
+    setErrorMinMaxAC,
+    setHideSetAC,
+    setMaxValueAC,
+    setMinValueAC,
+    setValueAC
+} from '../../state/couner4-reducer';
 
 export const Counter4 = () => {
 
-    const [minValue, setMinValue] = useState(0)
-    const [maxValue, setMaxValue] = useState(5)
-    const [value, setValue] = useState(minValue)
-    const [error, setError] = useState(false)
-    const [errorMinMax, setErrorMinMax] = useState(false)
+    const dispatch = useDispatch()
 
-    const [hideSet, setHideSet] = useState(true)
-
+    let minValue = useSelector<AppRootStateType, number>(state => state.counter4.minValue)
+    let maxValue = useSelector<AppRootStateType, number>(state => state.counter4.maxValue)
+    let value = useSelector<AppRootStateType, number>(state => state.counter4.value)
+    let error = useSelector<AppRootStateType, boolean>(state => state.counter4.error)
+    let errorMinMax = useSelector<AppRootStateType, boolean>(state => state.counter4.errorMinMax)
+    let hideSet = useSelector<AppRootStateType, boolean>(state => state.counter4.hideSet)
 
     useEffect(() => {
-        const minValue = localStorage.getItem('minValue')
-        const maxValue = localStorage.getItem('maxValue')
-
-        minValue && setMinValue(JSON.parse(minValue))
-        maxValue && setMaxValue(JSON.parse(maxValue))
-        minValue && setValue(JSON.parse(minValue))
-
+        dispatch(setValueAC(minValue))
+        const minValueLS = localStorage.getItem('minValue')
+        const maxValueLS = localStorage.getItem('maxValue')
+        minValueLS && dispatch(setMinValueAC(JSON.parse(minValueLS)))
+        maxValueLS && dispatch(setMaxValueAC(JSON.parse(maxValueLS)))
+        minValueLS && dispatch(setValueAC(JSON.parse(minValueLS)))
     }, [])
 
     useEffect(() => {
-        setError(value >= maxValue)
-        setErrorMinMax(minValue === maxValue)
+        dispatch(setErrorAC(value >= maxValue))
+        dispatch(setErrorMinMaxAC(minValue === maxValue))
     }, [value, minValue, maxValue])
 
     const increment = () => {
-        value < maxValue && setValue((value) => value + 1)
+        value < maxValue && dispatch(setValueAC(value + 1))
     }
 
-    const reset = () => {
-        setValue(minValue)
-    }
+    const reset = () => dispatch(setValueAC(minValue))
+
     const switchSettings = () => {
-        setHideSet(!hideSet)
-        setValue(minValue)
+        dispatch(setHideSetAC(!hideSet))
+        dispatch(setValueAC(minValue))
     }
     const saveSettings = () => {
-        setHideSet(!hideSet)
+        dispatch(setHideSetAC(!hideSet))
+        dispatch(setValueAC(minValue))
         localStorage.setItem('minValue', JSON.stringify(minValue))
         localStorage.setItem('maxValue', JSON.stringify(maxValue))
-        setValue(minValue)
     }
     return <>
-        <h2>Wednesday: Counter4</h2>
+        <h2>Wednesday: Counter4-redux</h2>
         {hideSet ?
             <div className={`counter ${error ? 'limit' : ''}`}>
                 <Screen>
@@ -63,10 +71,8 @@ export const Counter4 = () => {
                 </Wrapper>
             </div>
             : <div className={`counter ${errorMinMax ? 'limit' : ''}`}>
-                <ToSetValue minValue={minValue} maxValue={maxValue} title={'MaxValue'} value={maxValue}
-                            setValue={setMaxValue}/>
-                <ToSetValue minValue={minValue} maxValue={maxValue} title={'MinValue'} value={minValue}
-                            setValue={setMinValue}/>
+                <ToSetValue minValue={minValue} maxValue={maxValue} title={'MaxValue'} value={maxValue}/>
+                <ToSetValue minValue={minValue} maxValue={maxValue} title={'MinValue'} value={minValue}/>
                 <Wrapper>
                     <Button disabled={errorMinMax} onClick={saveSettings} name={'set'}/>
                 </Wrapper>
